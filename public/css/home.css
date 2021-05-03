@@ -1,0 +1,61 @@
+div#nav_bar{
+    background: #064BD5;
+    padding: 25px 0px 25px 10px;
+    opacity: 0.9;
+}
+
+div#nav_bar div a{
+    text-decoration: none;
+}
+
+a#login, a#register{
+    color:white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 15px 15px;
+}
+
+a#login{
+    border-right: 2px solid white;
+}
+
+a#register{
+    margin-right: 5px;
+}
+
+div#column-two-nav-bar{
+    padding-top: 10px;
+}
+
+body{
+    background: url('/img/background.jpg') no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+img#center-logo, img#footer-logo{
+    margin-top: 10%;
+}
+
+img#footer-logo{
+    position: absolute;
+    left: 44%;
+    bottom: 20px;
+}
+
+@media screen and  (max-width: 600px){
+    img#center-logo{
+        margin-top: 30%;
+        width: 100%;
+    }
+
+    img#footer-logo{
+        left: 30%;
+    }
+
+    a#login, a#register{
+        font-size: 10px;
+        padding: 10px 10px;
+    }
+}

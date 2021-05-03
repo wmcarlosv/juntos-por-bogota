@@ -1,0 +1,62 @@
+
+/* Login */
+img.logo{
+    width: 240px;
+    height: 100px;
+    margin:0px auto;
+}
+
+div.card{
+    padding:40px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px #808080;
+    position: relative;
+
+}
+
+form label{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    color:#808080;
+}
+
+input[type='email'], input[type='password'], input[type='text'], input[type='date'], textarea{
+    padding: 25px !important;
+    background:#F7F7F7 !important;
+    border:none !important;
+    border-radius: 10px !important;
+}
+
+input#remember{
+   background:#F7F7F7 !important;
+   border:none !important; 
+   padding: 10px !important;
+}
+
+button{
+    background:#064BD5 !important;
+    padding: 10px 60px !important;
+    font-weight: bold;
+    font-size: 18px !important;
+    text-transform: uppercase;
+    border-radius: 10px !important;
+}
+
+a.btn-link{
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+a.close-add{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    color: #808080;;
+}

@@ -1,0 +1,161 @@
+::placeholder{
+        color:white;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-style: oblique;
+    }
+    div#contenedor{
+        padding: 30px;
+    }
+
+    *:focus{
+        outline: none !important;
+    }
+
+    table{
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    table thead {
+        background: #F7F7F7;
+    }
+
+    table thead th{
+        padding: 20px !important;
+        font-weight: bold;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    table tbody tr td{
+        text-align: center;
+        padding:20px;
+        font-weight: bold;
+        color: #808080;
+    }
+
+    body{
+        background:white !important;
+        letter-spacing: -1px;
+        text-transform: uppercase !important;
+    }
+
+    h1,h2{
+        font-weight: bold;
+        color: #808080;
+    }
+
+    h4{
+        font-weight: bold;
+        color: #DDDDDD;
+    }
+
+    button{
+        text-transform: uppercase;
+        padding: 10px 40px !important;
+        border-radius: 10px !important;
+        font-weight: bold !important;
+        background:#064BD5 !important;
+    }
+
+    span.user-name{
+        color: white;
+        font-weight: bold;
+        margin: 0px 30px;
+    }
+
+    input[name='search']{
+        width: 60%;
+        margin-right: 30px;
+        border: 0px;
+        padding: 4px;
+        background:#064BD5;
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-style: oblique;
+    }
+
+    div.menu{
+        position: absolute;
+        right: 0px;
+        top:93px;
+        background:white;
+        padding:20px;
+        box-shadow: 1px 0px 10px #808080;
+        width: 400px;
+        display: none;
+    }
+
+    div.menu h1{
+        margin-top: 20px;
+        font-size: 35px;
+        text-align: right;
+        color:#064BD5;
+    }
+
+    div.menu hr{
+        background: #064BD5;
+    }
+
+    div.menu ul{
+        list-style: none;
+        padding-right: 10px;
+    }
+
+    div.menu ul li a{
+        text-decoration: none;
+        text-align: right !important;
+        display: block;
+        margin:30px 0px;
+        font-weight: bold;
+        color: #808080;
+    }
+
+    div.menu ul li a span{
+        background: #064BD5;
+        color:white;
+        padding: 5px 11px;
+        border-radius: 50%;
+    }
+
+    a.actions{
+        color:#064BD5;
+        padding: 0px 2px;
+    }
+
+    @media screen and  (max-width: 600px){
+        div.column-register{
+            padding: 8px 0px;
+            font-size: 12px;
+
+        }
+
+        input[name='search']{
+            display: none;
+        }
+
+        span.user-name{
+            margin:0px 10px;
+        }
+    }
+
+    @media screen and (min-width: 600px){
+        input[name='search']{
+            width: 20%;
+        }
+    }
+
+    @media screen and (min-width: 820px){
+        input[name='search']{
+            width: 45%;
+        }
+    }
+
+    @media screen and (min-width: 1024px){
+        input[name='search']{
+            width: 60%;
+        }
+    }
