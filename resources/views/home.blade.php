@@ -19,7 +19,21 @@
 
 @section('content')
 <div class="container-fluid" id="contenedor">
-    <h1>¡Bienvenido! {{ Auth::user()->name.' '.Auth::user()->last_name }}</h1>
+    <h1 style="text-transform: none;">¡Hola! <span style="text-transform: capitalize;">{{ Auth::user()->name.' '.Auth::user()->last_name }}</span></h1>
+    <div class="row">
+        <div class="col-md-12 text-center" id="zone-result-friends">
+            <h1>tienes {{ $users->count() }} amigos</h1>
+            <img src="/img/bienvenida.png" />
+            <h1>¿QUIERES AÑADIR MÁS AMIGOS?</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button class="btn btn-primary" id="add" type="button">añadir</button>
+        </div>
+    </div>
+
     <div style="overflow-x: auto;">
     <table>
         <thead>
@@ -65,11 +79,6 @@
             @endif
         </tbody>
     </table>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <button class="btn btn-primary" id="add" type="button">añadir</button>
-        </div>
     </div>
 </div>
 @endsection

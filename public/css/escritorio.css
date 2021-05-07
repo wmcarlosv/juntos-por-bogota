@@ -159,3 +159,16 @@
             width: 60%;
         }
     }
+
+    div#zone-result-friends h1{
+        color:#064BD5 !important;
+    }
+
+    div#zone-result-friends img{
+        margin: 0px auto !important;
+    }
+
+    div#zone-result-friends h1:last-child{
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
