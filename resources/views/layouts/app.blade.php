@@ -34,6 +34,9 @@
                     <li><a href="{{ route('view_password') }}">Cambiar Contraseña</a></li>
                     <li><a href="{{ route('add') }}">Añadir Referido</a></li>
                     <li><a href="{{ route('home') }}">Total referidos <span>{{ @$users->count() }}</span></a></li>
+                    @if(Auth::user()->is_admin)
+                        <li><a href="{{ route('administrator') }}">Administracion</a></li>
+                    @endif
                     <li><a href="#" id="set-logout">Cerrar Sesión</a></li>
                 </ul>
                 <form method="POST" id="logout" action="{{ route('logout') }}">@csrf</form>

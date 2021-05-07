@@ -34,10 +34,28 @@ img#center-logo, img#footer-logo{
     margin-top: 10%;
 }
 
-img#footer-logo{
+div#footer-logo{
     position: absolute;
     left: 44%;
-    bottom: 20px;
+    bottom: 50px;
+}
+
+div#footer-logo ul{
+    height: auto;
+    overflow: hidden;
+    list-style: none !important;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+}
+
+div#footer-logo ul li a{
+    display: block;
+    float: left;
+    margin: 10px 5px;
+    padding: 3px 6px;
+    background: white;
+    border-radius: 50%;
 }
 
 @media screen and  (max-width: 600px){
@@ -46,7 +64,7 @@ img#footer-logo{
         width: 100%;
     }
 
-    img#footer-logo{
+    div#footer-logo{
         left: 30%;
     }
 

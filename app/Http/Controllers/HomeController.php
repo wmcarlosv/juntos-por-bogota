@@ -106,6 +106,12 @@ class HomeController extends Controller
         return view('edit', ['users' => $users, 'friend'=>$friend, 'locales'=>$this->locales]);
     }
 
+    public function show_friend($id){
+        $friend = User::findorfail($id);
+        $users = User::where('parent_user_id',Auth::user()->id)->get();
+        return view('show', ['users' => $users, 'friend'=>$friend, 'locales'=>$this->locales]);
+    }
+
     public function update_friend(Request $request, $id){
         $request->validate([
             'name' => 'required',
@@ -263,5 +269,10 @@ class HomeController extends Controller
     public function view_password(){
         $users = User::where('parent_user_id',Auth::user()->id)->get();
         return view('change_password', ['users' => $users]);
+    }
+
+    public function administrator(){
+        $users = User::where('is_admin',null)->get();
+        return view('administrator',['users'=>$users,'locales'=>$this->locales]);
     }
 }
