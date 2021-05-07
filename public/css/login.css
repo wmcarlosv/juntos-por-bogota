@@ -34,6 +34,13 @@ input[type='email'], input[type='password'], input[type='text'], input[type='dat
     border-radius: 10px !important;
 }
 
+select{
+    height: 49px !important;
+    border:none !important;
+    border-radius: 10px !important;
+    background:#F7F7F7 !important;
+}
+
 input#remember{
    background:#F7F7F7 !important;
    border:none !important; 

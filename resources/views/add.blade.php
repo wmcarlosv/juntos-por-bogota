@@ -26,28 +26,37 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Nombre:</label>
+                            <label>Nombres:</label>
                             <input type="text" name="name" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Apellido:</label>
+                            <label>Apellidos:</label>
                             <input type="text" name="last_name" class="form-control" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>dni:</label>
+                            <label>CÉDULA DE CIUDADANÍA:</label>
                             <input type="text" name="dni" class="form-control" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>fecha de nacimiento:</label>
                             <input type="date" name="birth_date" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Sexo:</label>
+                            <select class="form-control" name="sex">
+                                <option value="male">Masculino</option>
+                                <option value="female">Femenino</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -65,6 +74,27 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>localidad:</label>
+                            <select class="form-control" name="locale">
+                                <option value="">Seleccione</option>
+                                @foreach($locales as $locale)
+                                    <option value="{{ $locale['id'] }}" data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>upz:</label>
+                            <select class="form-control" name="upz"></select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Dirección:</label>
                     <textarea class="form-control" name="address"></textarea>
@@ -77,3 +107,22 @@
    </div>
 </div>
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+        $("select[name='locale']").change(function(){
+            let data = $(this).children("option:selected").attr("data-upz");
+            if(data){
+                let html = "<option value=''>Seleccione</option>";
+                data = JSON.parse(data);
+                console.log(data);
+                data.forEach((e)=>{
+                    html+="<option value='"+e.id+"'>"+e.name+"</option>";
+                });
+                $("select[name='upz']").html(html);
+            }
+            
+
+        });
+    </script>
+@stop

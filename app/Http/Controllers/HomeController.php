@@ -10,6 +10,7 @@ use DB;
 
 class HomeController extends Controller
 {
+    public $locales = [];
     /**
      * Create a new controller instance.
      *
@@ -18,6 +19,36 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->locales = [
+            [
+                'id'=>'01',
+                'name'=>'Usaquén',
+                'upz'=>[
+                   ['id'=> '1', 'name'=>'Paseo de los Libertadores'],
+                   ['id'=> '9', 'name'=>'Verbenal'],
+                   ['id'=>'10', 'name'=>'La Uribe'],
+                   ['id'=>'11','name'=>'San Cristóbal Norte'],
+                   ['id'=>'12','name'=>'Toberín'],
+                   ['id'=> '13','name'=>'Los Cedros'],
+                   ['id'=>'14','name'=>'Usaquén'],
+                   ['id'=>'15','name'=>'Country Club'],
+                   ['id'=>'16','name'=>'Santa Bárbara']
+                ]
+            ],
+            [
+                'id'=>'02',
+                'name'=>'Chapinero',
+                'upz'=>[
+                    ['id'=>'88', 'name'=>'El Refugio'],
+                    ['id'=>'89', 'name'=>'San Isidro-Patios'],
+                    ['id'=>'90', 'name'=>'Pardo Rubio'],
+                    ['id'=>'97', 'name'=>'Chicó Lago'],
+                    ['id'=>'99', 'name'=>'Chapinero'],
+                    ['id'=>'91', 'name'=>'Sagrado Corazón']
+                ]
+            ]
+        ];
     }
 
     /**
@@ -47,7 +78,7 @@ class HomeController extends Controller
 
     public function add(){
         $users = User::where('parent_user_id',Auth::user()->id)->get();
-        return view('add', ['users' => $users]);
+        return view('add', ['users' => $users, 'locales'=>$this->locales]);
     }
 
     public function edit_friend($id){
@@ -64,7 +95,10 @@ class HomeController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'address' => 'required',
-            'birth_date' => 'required'
+            'birth_date' => 'required',
+            'sex'=>'required',
+            'upz'=>'required',
+            'locale'=>'required'
         ]);
 
         $user = User::findorfail($id);
@@ -75,6 +109,9 @@ class HomeController extends Controller
         $user->address = $request->input('address');
         $user->email = $request->input('email');
         $user->birth_date = $request->input('birth_date');
+        $user->sex = $request->input('sex');
+        $user->upz = $request->input('upz');
+        $user->locale = $request->input('locale');
 
         if($user->update()){
             Session::flash('success','Referido actualizado con Exito!!');
@@ -93,7 +130,10 @@ class HomeController extends Controller
             'birth_date'=>'required',
             'phone'=>'required',
             'address'=>'required',
-            'dni'=>'required'
+            'dni'=>'required',
+            'sex'=>'required',
+            'upz'=>'required',
+            'locale'=>'required'
         ]);
 
         $user = new User();
@@ -106,6 +146,9 @@ class HomeController extends Controller
         $user->address = $request->input('address');
         $user->dni = $request->input('dni');
         $user->parent_user_id = Auth::user()->id;
+        $user->sex = $request->input('sex');
+        $user->upz = $request->input('upz');
+        $user->locale = $request->input('locale');
 
         if($user->save()){
             Session::flash('success','Referido Añadido con Exito!!');
@@ -118,7 +161,7 @@ class HomeController extends Controller
 
     public function profile(){
         $users = User::where('parent_user_id',Auth::user()->id)->get();
-        return view('profile', ['users' => $users]);
+        return view('profile', ['users' => $users, 'locales'=>$this->locales]);
     }
 
     public function update_profile(Request $request){
@@ -129,7 +172,10 @@ class HomeController extends Controller
             'phone' => 'required',
             'birth_date' => 'required',
             'address' => 'required',
-            'dni' => 'required'
+            'dni' => 'required',
+            'sex'=>'required',
+            'upz'=>'required',
+            'locale'=>'required'
         ]);
 
         $user = User::findorfail(Auth::user()->id);
