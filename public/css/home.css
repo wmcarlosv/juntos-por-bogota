@@ -46,14 +46,15 @@ div#footer-logo ul{
     list-style: none !important;
     margin: 0px;
     padding: 0px;
-    padding-left: 10px;
+    padding-left: 8px;
+    
 }
 
 div#footer-logo ul li a{
     display: block;
     float: left;
-    margin: 10px 5px;
-    padding: 3px 6px;
+    margin: 10px 3px;
+    padding: 5px 8px;
     background: white;
     border-radius: 50%;
 }
