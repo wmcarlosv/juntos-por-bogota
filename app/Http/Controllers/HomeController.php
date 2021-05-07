@@ -76,6 +76,25 @@ class HomeController extends Controller
         return view('home',['users' => $users, 'tag'=>$tag]);
     }
 
+    public function friend_list($tag=null){
+         if($tag == null){
+            $users = User::where('parent_user_id',Auth::user()->id)->get();
+        }else{
+            $users = DB::table('users')->where([
+                ['parent_user_id','=',Auth::user()->id],
+                ['name','like','%'.$tag.'%']
+            ])->orWhere([
+                ['parent_user_id','=',Auth::user()->id],
+                ['last_name','like','%'.$tag.'%']
+            ])->orWhere([
+                ['parent_user_id','=',Auth::user()->id],
+                ['dni','like','%'.$tag.'%']
+            ])->get();
+        }   
+        
+        return view('friend-list',['users' => $users, 'tag'=>$tag]);
+    }
+
     public function add(){
         $users = User::where('parent_user_id',Auth::user()->id)->get();
         return view('add', ['users' => $users, 'locales'=>$this->locales]);
@@ -84,7 +103,7 @@ class HomeController extends Controller
     public function edit_friend($id){
         $friend = User::findorfail($id);
         $users = User::where('parent_user_id',Auth::user()->id)->get();
-        return view('edit', ['users' => $users, 'friend'=>$friend]);
+        return view('edit', ['users' => $users, 'friend'=>$friend, 'locales'=>$this->locales]);
     }
 
     public function update_friend(Request $request, $id){
@@ -186,6 +205,9 @@ class HomeController extends Controller
         $user->birth_date = $request->input('birth_date');
         $user->address = $request->input('address');
         $user->dni = $request->input('dni');
+        $user->locale = $request->input('locale');
+        $user->sex = $request->input('sex');
+        $user->upz = $request->input('upz');
 
         if($user->update()){
             Session::flash('success','Perfil actualizado con Exito!!');

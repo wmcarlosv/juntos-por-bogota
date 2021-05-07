@@ -54,8 +54,8 @@
                         <div class="form-group">
                             <label>Sexo:</label>
                             <select class="form-control" name="sex">
-                                <option value="male">Masculino</option>
-                                <option value="female">Femenino</option>
+                                <option value="male" @if(Auth::user()->sex == 'male') selected='selected' @endif>Masculino</option>
+                                <option value="female" @if(Auth::user()->sex == 'female') selected='selected' @endif>Femenino</option>
                             </select>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             <select class="form-control" name="locale">
                                 <option value="">Seleccione</option>
                                 @foreach($locales as $locale)
-                                    <option value="{{ $locale['id'] }}" data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
+                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == Auth::user()->locale) selected='selected' @endif data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -91,6 +91,15 @@
                             <label>upz:</label>
                             <select class="form-control" name="upz">
                                 <option value="">Seleccione</option>
+                                @if(Auth::user()->upz)
+                                    @foreach($locales as $locale)
+                                        @if($locale['id'] == Auth::user()->locale)
+                                            @foreach($locale['upz'] as $upz)
+                                                <option value="{{ $upz['id'] }}" @if($upz['id'] == Auth::user()->upz) selected='selected' @endif>{{ $upz['name'] }}</option>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -121,7 +130,13 @@
                 $("select[name='upz']").html(html);
             }
             
-
         });
+
+        @if($errors->all())
+            Swal.fire({
+                imageUrl:'/img/oops.png',
+                html:'<span style="color:#808080; font-weight:bold; text-transform:capitalize;">debe llenar todos los campos</span>'
+            });
+        @endif
     </script>
 @stop

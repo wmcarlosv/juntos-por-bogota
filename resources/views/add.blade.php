@@ -121,8 +121,13 @@
                 });
                 $("select[name='upz']").html(html);
             }
-            
-
         });
+
+        @if($errors->all())
+            Swal.fire({
+                imageUrl:'/img/oops.png',
+                html:'<span style="color:#808080; font-weight:bold; text-transform:capitalize;">debe llenar todos los campos</span>'
+            });
+        @endif
     </script>
 @stop
