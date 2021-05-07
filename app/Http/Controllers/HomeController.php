@@ -132,6 +132,15 @@ class HomeController extends Controller
         $user->upz = $request->input('upz');
         $user->locale = $request->input('locale');
 
+         $users = User::where('dni',$request->input('dni'))->get();
+
+        if($users->count() > 0){
+            if($users[0]->id != $id){
+                return redirect()->back()->withErrors(['exist_dni'=>'La persona que intentas agregar ya se encuentra en nuestra base de datos!!']);
+
+            }
+        }
+
         if($user->update()){
             Session::flash('success','Referido actualizado con Exito!!');
         }else{
@@ -168,6 +177,11 @@ class HomeController extends Controller
         $user->sex = $request->input('sex');
         $user->upz = $request->input('upz');
         $user->locale = $request->input('locale');
+
+        $users = User::where('dni',$request->input('dni'))->get();
+        if($users->count() > 0){
+            return redirect()->back()->withErrors(['exist_dni'=>'La persona que intentas agregar ya se encuentra en nuestra base de datos!!']);
+        }
 
         if($user->save()){
             Session::flash('success','Referido Añadido con Exito!!');

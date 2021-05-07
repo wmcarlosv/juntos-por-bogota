@@ -133,11 +133,18 @@
             }
         });
 
-        @if($errors->all())
+        @if($errors->any())
             Swal.fire({
                 imageUrl:'/img/oops.png',
                 html:'<span style="color:#808080; font-weight:bold; text-transform:capitalize;">debe llenar todos los campos</span>'
             });
         @endif
+
+        @error('exist_dni')
+            Swal.fire({
+                imageUrl:'/img/oops.png',
+                html:'<span style="color:#808080; font-weight:bold; text-transform:capitalize;">{{ $message }}</span>'
+            });
+        @enderror
     </script>
 @stop
