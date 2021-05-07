@@ -1,4 +1,8 @@
-
+body{
+    background: url('/img/background.png') no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
 /* Login */
 img.logo{
     width: 240px;
@@ -49,6 +53,7 @@ a.btn-link{
     font-size: 11px;
     text-transform: uppercase;
     font-weight: bold;
+    color:#3FA9F5;
 }
 
 a.close-add{

@@ -6,10 +6,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}" />
 @stop
 
-@section('right-content')
-<a href="{{ route('register') }}" class="register-link">Registrarse</a>
-@stop
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -21,7 +17,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label>Correo Electrónico:</label>
+                            <label>CÉDULA DE CIUDADANÍA:</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">

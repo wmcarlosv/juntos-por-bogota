@@ -17,7 +17,6 @@
         </div>
         <div class="col-md-6 col-sm-8 col-10 text-right" id="column-two-nav-bar">
             <a href="{{ route('login') }}" id="login">iniciar sesión</a>
-            <a href="{{ route('register') }}" id="register">registrarse</a>
         </div>  
     </div>
     <div class="row">
