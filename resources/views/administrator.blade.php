@@ -34,7 +34,7 @@
 	   			<button class="btn btn-success" id="buscar_admin" type="button">Buscar</button>
 	   		</div>
 
-	   		<div class="col-md-3">
+	   		<div class="col-md-3 text-center">
 	   			<button class="btn bt-success" id="btn-export" style="color:white;" type="button">Exportar Registros</button>
 	   		</div>
 	   	</div>
