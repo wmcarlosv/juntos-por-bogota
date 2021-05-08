@@ -20,13 +20,13 @@
    <form class="form">
 	   	<div class="row">
 	   		<div class="col-md-4">
-	   			<input type="text" placeholder="Cedula de Ciudadania" name="dni" class="form-control" />
+	   			<input type="text" placeholder="Cedula de Ciudadania" value="{{ @$cc }}" name="dni" class="form-control" />
 	   		</div>
 	   		<div class="col-md-4">
 	   			<select class="form-control" name="locale">
 	   				<option value="">Localidad</option>
 	   				@foreach($locales as $locale)
-	   					<option value="{{ $locale['id'] }}">{{ $locale['name'] }}</option>
+	   					<option value="{{ $locale['id'] }}" @if(@$lc == $locale['id']) selected="selected" @endif>{{ $locale['name'] }}</option>
 	   				@endforeach
 	   			</select>
 	   		</div>
@@ -43,8 +43,11 @@
 	            <th>Nombre</th>
 	            <th>Apellido</th>
 	            <th>Sexo</th>
+	            <th>Fecha de nacimiento</th>
+	            <th>Telefono</th>
+	            <th>Correo</th>
 	            <th>Localidad</th>
-	            <th>informacion completa</th>
+	            <th>Ver Referidos</th>
 	        </thead>
 	        <tbody>
 	        	@foreach($data as $user)
@@ -63,6 +66,9 @@
 	        					<span class="badge">Femenino</span>
 	        				@endif
 	        			</td>
+	        			<td>{{ date('d-m-Y',strtotime($user->birth_date)) }}</td>
+	        			<td>{{ $user->phone }}</td>
+	        			<td>{{ $user->email }}</td>
 	        			<td>
 	        				@foreach($locales as $locale)
 	        					@if($locale['id'] == $user->locale)

@@ -28,6 +28,74 @@ class HomeController extends Controller
             [
                 'id'=>'02',
                 'name'=>'Chapinero'
+            ],
+            [
+                'id'=>'03',
+                'name'=>'Santa Fe'
+            ],
+            [
+                'id'=>'04',
+                'name'=>'San Cristóbal'
+            ],
+            [
+                'id'=>'05',
+                'name'=>'Usme'
+            ],
+            [
+                'id'=>'06',
+                'name'=>'Tunjuelito'
+            ],
+            [
+                'id'=>'07',
+                'name'=>'Bosa'
+            ],
+            [
+                'id'=>'08',
+                'name'=>'Kennedy'
+            ],
+            [
+                'id'=>'09',
+                'name'=>'Fontibón'
+            ],
+            [
+                'id'=>'10',
+                'name'=>'Engativá'
+            ],
+            [
+                'id'=>'11',
+                'name'=>'Suba'
+            ],
+            [
+                'id'=>'12',
+                'name'=>'Barrios Unidos'
+            ],
+            [
+                'id'=>'13',
+                'name'=>'Teusaquillo'
+            ],
+            [
+                'id'=>'14',
+                'name'=>'Mártires'
+            ],
+            [
+                'id'=>'15',
+                'name'=>'Antonio Nariño'
+            ],
+            [
+                'id'=>'16',
+                'name'=>'Puente Aranda'
+            ],
+            [
+                'id'=>'17',
+                'name'=>'La Candelaria'
+            ],
+            [
+                'id'=>'18',
+                'name'=>'Rafael Uribe'
+            ],
+            [
+                'id'=>'19',
+                'name'=>'Ciudad Bolívar'
             ]
         ];
     }
@@ -277,7 +345,7 @@ class HomeController extends Controller
 
         $users = User::where('parent_user_id',Auth::user()->id)->get();
         
-        return view('administrator',['users'=>$users,'locales'=>$this->locales, 'data'=>$data]);
+        return view('administrator',['users'=>$users,'locales'=>$this->locales, 'data'=>$data,'cc'=>$cc, 'lc'=>$locale]);
     }
 
     public function error($tag = null)
