@@ -19,10 +19,10 @@
    <hr />
    <form class="form">
 	   	<div class="row">
-	   		<div class="col-md-4">
+	   		<div class="col-md-3">
 	   			<input type="text" placeholder="Cedula de Ciudadania" value="{{ @$cc }}" name="dni" class="form-control" />
 	   		</div>
-	   		<div class="col-md-4">
+	   		<div class="col-md-3">
 	   			<select class="form-control" name="locale">
 	   				<option value="">Localidad</option>
 	   				@foreach($locales as $locale)
@@ -30,12 +30,19 @@
 	   				@endforeach
 	   			</select>
 	   		</div>
-	   		<div class="col-md-4">
+	   		<div class="col-md-3 text-center">
 	   			<button class="btn btn-success" id="buscar_admin" type="button">Buscar</button>
+	   		</div>
+
+	   		<div class="col-md-3">
+	   			<button class="btn bt-success" id="btn-export" style="color:white;" type="button">Exportar Registros</button>
 	   		</div>
 	   	</div>
    </form>
-   <div style="overflow-x: auto;">
+
+ 
+
+   <div style="overflow-x: auto;" id="all_peoples">
 	    <table>
 	        <thead>
 	        	<th>Referido Por</th>
@@ -88,14 +95,23 @@
 
 @section('js')
 <script type="text/javascript">
-	$("#buscar_admin").click(function(){
-		let dni = $("input[name='dni']").val();
-		let locale = $("select[name='locale']").val();
-		if(!dni){
-			dni = " ";
-		}
+	
+	$(document).ready(function(){
+		$("#buscar_admin").click(function(){
+			let dni = $("input[name='dni']").val();
+			let locale = $("select[name='locale']").val();
+			if(!dni){
+				dni = " ";
+			}
 
-		location.href="/administrator/"+dni+"/"+locale;
-	})
+			location.href="/administrator/"+dni+"/"+locale;
+		});
+
+		$("#btn-export").click(function(){
+			window.open('data:application/vnd.ms-excel,' + $('#all_peoples').html());
+    		e.preventDefault();
+		});
+	});
+	
 </script>
 @stop
