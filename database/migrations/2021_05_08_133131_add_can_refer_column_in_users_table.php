@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsInTableUsers extends Migration
+class AddCanReferColumnInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddColumnsInTableUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('sex',['male','female'])->nullable();
-            $table->string('locale',255)->nullable();
+            $table->boolean('can_refer')->default(false);
         });
     }
 

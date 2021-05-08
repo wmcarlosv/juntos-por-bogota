@@ -75,31 +75,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>localidad:</label>
                             <select class="form-control" name="locale">
                                 <option value="">Seleccione</option>
                                 @foreach($locales as $locale)
-                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == Auth::user()->locale) selected='selected' @endif data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
+                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == Auth::user()->locale) selected='selected' @endif>{{ $locale['name'] }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>upz:</label>
-                            <select class="form-control" name="upz">
-                                <option value="">Seleccione</option>
-                                @if(Auth::user()->upz)
-                                    @foreach($locales as $locale)
-                                        @if($locale['id'] == Auth::user()->locale)
-                                            @foreach($locale['upz'] as $upz)
-                                                <option value="{{ $upz['id'] }}" @if($upz['id'] == Auth::user()->upz) selected='selected' @endif>{{ $upz['name'] }}</option>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                @endif
                             </select>
                         </div>
                     </div>
@@ -118,20 +101,6 @@
 @endsection
 @section('js')
     <script type="text/javascript">
-        $("select[name='locale']").change(function(){
-            let data = $(this).children("option:selected").attr("data-upz");
-            if(data){
-                let html = "<option value=''>Seleccione</option>";
-                data = JSON.parse(data);
-                console.log(data);
-                data.forEach((e)=>{
-                    html+="<option value='"+e.id+"'>"+e.name+"</option>";
-                });
-                $("select[name='upz']").html(html);
-            }
-            
-        });
-
         @if($errors->all())
             Swal.fire({
                 imageUrl:'/img/oops.png',

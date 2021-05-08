@@ -19,24 +19,19 @@
    <hr />
    <form class="form">
 	   	<div class="row">
-	   		<div class="col-md-3">
+	   		<div class="col-md-4">
 	   			<input type="text" placeholder="Cedula de Ciudadania" name="dni" class="form-control" />
 	   		</div>
-	   		<div class="col-md-3">
+	   		<div class="col-md-4">
 	   			<select class="form-control" name="locale">
 	   				<option value="">Localidad</option>
 	   				@foreach($locales as $locale)
-	   					<option value="{{ $locale['id'] }}" data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
+	   					<option value="{{ $locale['id'] }}">{{ $locale['name'] }}</option>
 	   				@endforeach
 	   			</select>
 	   		</div>
-	   		<div class="col-md-3">
-	   			<select class="form-control" name="upz">
-	   				<option value="">Upz</option>
-	   			</select>
-	   		</div>
-	   		<div class="col-md-3">
-	   			<button class="btn btn-success" type="button">Buscar</button>
+	   		<div class="col-md-4">
+	   			<button class="btn btn-success" id="buscar_admin" type="button">Buscar</button>
 	   		</div>
 	   	</div>
    </form>
@@ -44,17 +39,15 @@
 	    <table>
 	        <thead>
 	        	<th>Referido Por</th>
-	            <th>Dni</th>
+	            <th>Cc</th>
 	            <th>Nombre</th>
 	            <th>Apellido</th>
 	            <th>Sexo</th>
 	            <th>Localidad</th>
-	            <th>Upz</th>
 	            <th>informacion completa</th>
-	            <th>Referidos</th>
 	        </thead>
 	        <tbody>
-	        	@foreach($users as $user)
+	        	@foreach($data as $user)
 	        		@php
 	        			$referer = \App\Models\User::findorfail($user->parent_user_id)
 	        		@endphp
@@ -77,17 +70,6 @@
 	        					@endif
 	        				@endforeach
 	        			</td>
-	        			<td>
-	        				@foreach($locales as $locale)
-	        					@if($locale['id'] == $user->locale)
-	        						@foreach($locale['upz'] as $upz)
-	        							@if($upz['id'] == $user->upz)
-	        								{{ $upz['name'] }}
-	        							@endif
-	        						@endforeach
-	        					@endif
-	        				@endforeach
-	        			</td>
 	        			<td><a href="{{ route('show_friend',$user->id) }}">Ver</a></td>
 	        			<td></td>
 	        		</tr>
@@ -100,17 +82,14 @@
 
 @section('js')
 <script type="text/javascript">
-	$("select[name='locale']").change(function(){
-            let data = $(this).children("option:selected").attr("data-upz");
-            if(data){
-                let html = "<option value=''>Upz</option>";
-                data = JSON.parse(data);
-                console.log(data);
-                data.forEach((e)=>{
-                    html+="<option value='"+e.id+"'>"+e.name+"</option>";
-                });
-                $("select[name='upz']").html(html);
-            }
-        });
+	$("#buscar_admin").click(function(){
+		let dni = $("input[name='dni']").val();
+		let locale = $("select[name='locale']").val();
+		if(!dni){
+			dni = " ";
+		}
+
+		location.href="/administrator/"+dni+"/"+locale;
+	})
 </script>
 @stop

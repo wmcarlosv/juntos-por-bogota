@@ -23,30 +23,11 @@ class HomeController extends Controller
         $this->locales = [
             [
                 'id'=>'01',
-                'name'=>'Usaquén',
-                'upz'=>[
-                   ['id'=> '1', 'name'=>'Paseo de los Libertadores'],
-                   ['id'=> '9', 'name'=>'Verbenal'],
-                   ['id'=>'10', 'name'=>'La Uribe'],
-                   ['id'=>'11','name'=>'San Cristóbal Norte'],
-                   ['id'=>'12','name'=>'Toberín'],
-                   ['id'=> '13','name'=>'Los Cedros'],
-                   ['id'=>'14','name'=>'Usaquén'],
-                   ['id'=>'15','name'=>'Country Club'],
-                   ['id'=>'16','name'=>'Santa Bárbara']
-                ]
+                'name'=>'Usaquén'
             ],
             [
                 'id'=>'02',
-                'name'=>'Chapinero',
-                'upz'=>[
-                    ['id'=>'88', 'name'=>'El Refugio'],
-                    ['id'=>'89', 'name'=>'San Isidro-Patios'],
-                    ['id'=>'90', 'name'=>'Pardo Rubio'],
-                    ['id'=>'97', 'name'=>'Chicó Lago'],
-                    ['id'=>'99', 'name'=>'Chapinero'],
-                    ['id'=>'91', 'name'=>'Sagrado Corazón']
-                ]
+                'name'=>'Chapinero'
             ]
         ];
     }
@@ -109,7 +90,8 @@ class HomeController extends Controller
     public function show_friend($id){
         $friend = User::findorfail($id);
         $users = User::where('parent_user_id',Auth::user()->id)->get();
-        return view('show', ['users' => $users, 'friend'=>$friend, 'locales'=>$this->locales]);
+        $referers = User::where('parent_user_id',$id)->get();
+        return view('show', ['users' => $users, 'friend'=>$friend, 'locales'=>$this->locales,'referers'=>$referers]);
     }
 
     public function update_friend(Request $request, $id){
@@ -122,7 +104,6 @@ class HomeController extends Controller
             'address' => 'required',
             'birth_date' => 'required',
             'sex'=>'required',
-            'upz'=>'required',
             'locale'=>'required'
         ]);
 
@@ -135,8 +116,11 @@ class HomeController extends Controller
         $user->email = $request->input('email');
         $user->birth_date = $request->input('birth_date');
         $user->sex = $request->input('sex');
-        $user->upz = $request->input('upz');
         $user->locale = $request->input('locale');
+
+        if($request->input('can_refer')){
+            $user->can_refer = 1;
+        }
 
          $users = User::where('dni',$request->input('dni'))->get();
 
@@ -166,7 +150,6 @@ class HomeController extends Controller
             'address'=>'required',
             'dni'=>'required',
             'sex'=>'required',
-            'upz'=>'required',
             'locale'=>'required'
         ]);
 
@@ -179,10 +162,15 @@ class HomeController extends Controller
         $user->birth_date = $request->input('birth_date');
         $user->address = $request->input('address');
         $user->dni = $request->input('dni');
+        $user->password = bcrypt($request->input('dni'));
         $user->parent_user_id = Auth::user()->id;
         $user->sex = $request->input('sex');
-        $user->upz = $request->input('upz');
         $user->locale = $request->input('locale');
+
+        if($request->input('can_refer')){
+            $user->can_refer = 1;
+        }
+
 
         $users = User::where('dni',$request->input('dni'))->get();
         if($users->count() > 0){
@@ -213,7 +201,6 @@ class HomeController extends Controller
             'address' => 'required',
             'dni' => 'required',
             'sex'=>'required',
-            'upz'=>'required',
             'locale'=>'required'
         ]);
 
@@ -227,7 +214,6 @@ class HomeController extends Controller
         $user->dni = $request->input('dni');
         $user->locale = $request->input('locale');
         $user->sex = $request->input('sex');
-        $user->upz = $request->input('upz');
 
         if($user->update()){
             Session::flash('success','Perfil actualizado con Exito!!');
@@ -271,8 +257,46 @@ class HomeController extends Controller
         return view('change_password', ['users' => $users]);
     }
 
-    public function administrator(){
-        $users = User::where('is_admin',null)->get();
-        return view('administrator',['users'=>$users,'locales'=>$this->locales]);
+    public function administrator($cc=null, $locale=null){
+        if($cc==null && $locale==null){
+            $data = DB::select(DB::raw("SELECT * FROM users where is_admin is null")); 
+        }else{
+            if($cc!=null && $locale==null){
+                $data = DB::select(DB::raw("SELECT * FROM users where is_admin is null and dni like '%".$cc."%'"));
+            }
+
+            if($cc==null && $locale!=null){
+                $data = DB::select(DB::raw("SELECT * FROM users where is_admin is null and locale like '%".$locale."%'"));
+            }
+
+            if($cc!=null && $locale!=null){
+                $data = DB::select(DB::raw("SELECT * FROM users where is_admin is null and (locale like '%".$locale."%' or dni like '%".$cc."%')"));
+            }
+            
+        }
+
+        $users = User::where('parent_user_id',Auth::user()->id)->get();
+        
+        return view('administrator',['users'=>$users,'locales'=>$this->locales, 'data'=>$data]);
+    }
+
+    public function error($tag = null)
+    {
+        if($tag == null){
+            $users = User::where('parent_user_id',Auth::user()->id)->get();
+        }else{
+            $users = DB::table('users')->where([
+                ['parent_user_id','=',Auth::user()->id],
+                ['name','like','%'.$tag.'%']
+            ])->orWhere([
+                ['parent_user_id','=',Auth::user()->id],
+                ['last_name','like','%'.$tag.'%']
+            ])->orWhere([
+                ['parent_user_id','=',Auth::user()->id],
+                ['dni','like','%'.$tag.'%']
+            ])->get();
+        }   
+        
+        return view('error',['users' => $users, 'tag'=>$tag]);
     }
 }

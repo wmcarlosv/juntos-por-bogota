@@ -18,7 +18,7 @@
 <div class="container">
    <div class="card">
     <a class="close-add" href="{{ route('administrator') }}">X</a>   
-       <h2>ver referido</h2>
+       <h2>Datos de la Persona</h2>
        <div class="card-body">
             <form autocomplete="off">
                 @csrf
@@ -76,31 +76,14 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>localidad:</label>
                             <select class="form-control" name="locale">
                                 <option value="">Seleccione</option>
                                 @foreach($locales as $locale)
-                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == $friend->locale) selected='selected' @endif data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
+                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == $friend->locale) selected='selected' @endif>{{ $locale['name'] }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>upz:</label>
-                            <select class="form-control" name="upz">
-                                <option value="">Seleccione</option>
-                                @if($friend->upz)
-                                    @foreach($locales as $locale)
-                                        @if($locale['id'] == $friend->locale)
-                                            @foreach($locale['upz'] as $upz)
-                                                <option value="{{ $upz['id'] }}" @if($upz['id'] == $friend->upz) selected='selected' @endif>{{ $upz['name'] }}</option>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                @endif
                             </select>
                         </div>
                     </div>
@@ -109,6 +92,42 @@
                     <label>Dirección:</label>
                     <textarea class="form-control" name="address">{{ $friend->address }}</textarea>
                 </div>
+                <h2>Lista de Referidos</h2>
+                <hr>
+                <table class="table">
+                    <thead>
+                        <th>Cc</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Sexo</th>
+                        <th>Localidad</th>
+                        <th>Informacion Completa</th>
+                    </thead>
+                    <tbody>
+                        @foreach($referers as $referer)
+                            <tr>
+                                <td>{{ $referer->dni }}</td>
+                                <td>{{ $referer->name }}</td>
+                                <td>{{ $referer->last_name }}</td>
+                                <td>
+                                    @if($referer->sex == 'male')
+                                        Masculino
+                                    @else
+                                        Femenino
+                                    @endif
+                                </td>
+                                <td>
+                                    @foreach($locales as $locale)
+                                        @if($referer->locale == $locale['id'])
+                                            {{ $locale['name'] }}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td><a href="{{ route('show_friend',$referer->id) }}">Ver</a></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </form>
        </div>
    </div>

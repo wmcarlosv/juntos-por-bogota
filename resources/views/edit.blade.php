@@ -76,31 +76,14 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>localidad:</label>
                             <select class="form-control" name="locale">
                                 <option value="">Seleccione</option>
                                 @foreach($locales as $locale)
-                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == $friend->locale) selected='selected' @endif data-upz="{{ json_encode($locale['upz']) }}">{{ $locale['name'] }}</option>
+                                    <option value="{{ $locale['id'] }}" @if($locale['id'] == $friend->locale) selected='selected' @endif>{{ $locale['name'] }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>upz:</label>
-                            <select class="form-control" name="upz">
-                                <option value="">Seleccione</option>
-                                @if($friend->upz)
-                                    @foreach($locales as $locale)
-                                        @if($locale['id'] == $friend->locale)
-                                            @foreach($locale['upz'] as $upz)
-                                                <option value="{{ $upz['id'] }}" @if($upz['id'] == $friend->upz) selected='selected' @endif>{{ $upz['name'] }}</option>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                @endif
                             </select>
                         </div>
                     </div>
@@ -109,6 +92,18 @@
                     <label>Dirección:</label>
                     <textarea class="form-control" name="address">{{ $friend->address }}</textarea>
                 </div>
+                @if(Auth::user()->is_admin)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check">
+                              <input class="form-check-input" @if($friend->can_refer) checked='checked' @endif name="can_refer" type="checkbox" id="can_refer">
+                              <label class="form-check-label" for="can_refer">
+                                Puede Referir
+                              </label>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="form-group text-center" style="padding-top: 20px;">
                     <button class="btn btn-primary" type="submit">Actualizar</button>
                 </div>
@@ -120,19 +115,6 @@
 
 @section('js')
     <script type="text/javascript">
-        $("select[name='locale']").change(function(){
-            let data = $(this).children("option:selected").attr("data-upz");
-            if(data){
-                let html = "<option value=''>Seleccione</option>";
-                data = JSON.parse(data);
-                console.log(data);
-                data.forEach((e)=>{
-                    html+="<option value='"+e.id+"'>"+e.name+"</option>";
-                });
-                $("select[name='upz']").html(html);
-            }
-        });
-
         @if($errors->any())
             Swal.fire({
                 imageUrl:'/img/oops.png',
