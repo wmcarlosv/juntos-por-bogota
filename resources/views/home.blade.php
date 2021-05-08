@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-12 text-center" id="zone-result-friends">
             <h1>tienes {{ $users->count() }} amigos</h1>
-            <img src="/img/bienvenida.png" style="width:100%;" />
+            <img src="/img/bienvenida.png" id="img_welcome" />
             <h1>¿QUIERES AÑADIR MÁS AMIGOS?</h1>
         </div>
     </div>

@@ -141,6 +141,10 @@
             width: 35%;
         }
 
+        img#img_welcome{
+            width:100%;
+        }
+
         img#logo_full{
             width: 120px;
             height: 40px;
