@@ -133,12 +133,22 @@
 
         }
 
+        a#search{
+            margin-right: 3px;
+        }
+
         input[name='search']{
-            display: none;
+            width: 35%;
+        }
+
+        img#logo_full{
+            width: 120px;
+            height: 40px;
         }
 
         span.user-name{
             margin:0px 10px;
+            display: none !important;
         }
     }
 

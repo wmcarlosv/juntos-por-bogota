@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-2">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('img/nav_bar_logo.png') }}" />
+                        <img src="{{ asset('img/nav_bar_logo.png') }}"  id="logo_full"/>
                     </a>
                 </div>
                 <div class="col-lg-10 col-md-10 col-10 text-right column-register">
