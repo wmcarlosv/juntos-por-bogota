@@ -26,7 +26,7 @@ Auth::routes();
 
 Route::get('/home/{tag?}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/error', [App\Http\Controllers\HomeController::class, 'error'])->name('error');
-Route::get('/add', [App\Http\Controllers\HomeController::class, 'add'])->name('add');
+Route::get('/add', [App\Http\Controllers\HomeController::class, 'add'])->name('add')->middleware('can_refer');;
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/edit-friend/{id}', [App\Http\Controllers\HomeController::class, 'edit_friend'])->name('edit_friend')->middleware('can_refer');
 Route::get('/show-friend/{id}', [App\Http\Controllers\HomeController::class, 'show_friend'])->name('show_friend');

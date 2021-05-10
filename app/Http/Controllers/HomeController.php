@@ -188,6 +188,8 @@ class HomeController extends Controller
 
         if($request->input('can_refer')){
             $user->can_refer = 1;
+        }else{
+            $user->can_refer = 0;
         }
 
          $users = User::where('dni',$request->input('dni'))->get();
@@ -237,6 +239,8 @@ class HomeController extends Controller
 
         if($request->input('can_refer')){
             $user->can_refer = 1;
+        }else{
+            $user->can_refer = 0;
         }
 
 

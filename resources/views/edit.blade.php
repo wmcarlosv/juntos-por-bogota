@@ -92,18 +92,16 @@
                     <label>Dirección:</label>
                     <textarea class="form-control" name="address">{{ $friend->address }}</textarea>
                 </div>
-                @if(Auth::user()->is_admin)
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-check">
-                              <input class="form-check-input" @if($friend->can_refer) checked='checked' @endif name="can_refer" type="checkbox" id="can_refer">
-                              <label class="form-check-label" for="can_refer">
-                                Puede Referir
-                              </label>
-                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-check">
+                          <input class="form-check-input" @if($friend->can_refer) checked='checked' @endif name="can_refer" type="checkbox" id="can_refer">
+                          <label class="form-check-label" for="can_refer">
+                            Puede Referir
+                          </label>
                         </div>
                     </div>
-                @endif
+                </div>
                 <div class="form-group text-center" style="padding-top: 20px;">
                     <button class="btn btn-primary" type="submit">Actualizar</button>
                 </div>
