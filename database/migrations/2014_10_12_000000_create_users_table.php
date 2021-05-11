@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('dni');
             $table->date('birth_date');
             $table->string('phone');
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->boolean('is_admin')->nullable();
             $table->integer('parent_user_id')->nullable();
             $table->string('email')->unique();

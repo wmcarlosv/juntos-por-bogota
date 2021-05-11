@@ -169,7 +169,6 @@ class HomeController extends Controller
             'dni' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'address' => 'required',
             'birth_date' => 'required',
             'sex'=>'required',
             'locale'=>'required'
@@ -217,7 +216,6 @@ class HomeController extends Controller
             'last_name'=>'required',
             'birth_date'=>'required',
             'phone'=>'required',
-            'address'=>'required',
             'dni'=>'required',
             'sex'=>'required',
             'locale'=>'required'
@@ -270,7 +268,6 @@ class HomeController extends Controller
             'email' => 'email|required',
             'phone' => 'required',
             'birth_date' => 'required',
-            'address' => 'required',
             'dni' => 'required',
             'sex'=>'required',
             'locale'=>'required'
