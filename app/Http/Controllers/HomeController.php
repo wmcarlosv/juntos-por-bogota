@@ -345,6 +345,7 @@ class HomeController extends Controller
         }
 
         $users = User::where('parent_user_id',Auth::user()->id)->get();
+
         
         return view('administrator',['users'=>$users,'locales'=>$this->locales, 'data'=>$data,'cc'=>$cc, 'lc'=>$locale]);
     }

@@ -59,14 +59,16 @@
 	        <tbody>
 	        	@foreach($data as $user)
 	        		@php
-	        			$referer = null;
-
-	        			if(\App\Models\User::findorfail($user->parent_user_id)){
-	        				$referer = \App\Models\User::findorfail($user->parent_user_id);
-	        			}
+	        			$referer = \App\Models\User::where('id',$user->parent_user_id)->get()
 	        		@endphp
 	        		<tr>
-	        			<td><a href="{{ route('show_friend',$referer->id) }}">{{ $referer->name.' '.$referer->last_name }}</a></td>
+	        			<td>
+	        				@if($referer->count() > 0)
+	        					<a href="{{ route('show_friend',$referer[0]->id) }}">{{ $referer[0]->name.' '.$referer[0]->last_name }}</a>
+	        				@else
+	        					
+	        				@endif
+	        			</td>
 	        			<td>{{ $user->dni }}</td>
 	        			<td>{{ $user->name }}</td>
 	        			<td>{{ $user->last_name }}</td>
