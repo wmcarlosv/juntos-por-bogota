@@ -327,6 +327,7 @@ class HomeController extends Controller
     }
 
     public function administrator($cc=null, $locale=null){
+        
         if($cc==null && $locale==null){
             $data = DB::select(DB::raw("SELECT * FROM users where is_admin is null")); 
         }else{

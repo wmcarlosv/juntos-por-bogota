@@ -19,10 +19,10 @@
    <hr />
    <form class="form">
 	   	<div class="row">
-	   		<div class="col-md-3">
+	   		<div class="col-md-2">
 	   			<input type="text" placeholder="Cedula de Ciudadania" value="{{ @$cc }}" name="dni" class="form-control" />
 	   		</div>
-	   		<div class="col-md-3">
+	   		<div class="col-md-2">
 	   			<select class="form-control" name="locale">
 	   				<option value="">Localidad</option>
 	   				@foreach($locales as $locale)
@@ -30,7 +30,23 @@
 	   				@endforeach
 	   			</select>
 	   		</div>
-	   		<div class="col-md-3 text-center">
+	   		<div class="col-md-1">
+	   			<select class="form-control" name="sex">
+	   				<option value="">Sexo</option>
+	   				<option value="male">Masculino</option>
+	   				<option value="female">Femenino</option>
+	   			</select>
+	   		</div>
+	   		<div class="col-md-2">
+	   			<select class="form-control" name="age">
+	   				<option value="">Edad Entre</option>
+	   				<option value="18-26">18-26</option>
+	   				<option value="27-39">27-39</option>
+	   				<option value="40-59">47-59</option>
+	   				<option value="60-150">60+</option>
+	   			</select>
+	   		</div>
+	   		<div class="col-md-2 text-center">
 	   			<button class="btn btn-success" id="buscar_admin" type="button">Buscar</button>
 	   		</div>
 
@@ -65,8 +81,6 @@
 	        			<td>
 	        				@if($referer->count() > 0)
 	        					<a href="{{ route('show_friend',$referer[0]->id) }}">{{ $referer[0]->name.' '.$referer[0]->last_name }}</a>
-	        				@else
-	        					
 	        				@endif
 	        			</td>
 	        			<td>{{ $user->dni }}</td>
