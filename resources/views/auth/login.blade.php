@@ -3,6 +3,7 @@
 @section('title', 'Iniciar Sesión')
 
 @section('css')
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}" />
 @stop
 
@@ -28,7 +29,13 @@
 
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                            <div class="input-group">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                                <div class="input-group-prepend">
+                                    <button type="button" id="show_password" data-view="1" class="btn btn-success"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                            
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -70,3 +77,22 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function(){
+            $("#show_password").click(function(){
+                let view = $(this).attr("data-view");
+                if(view == '1'){
+                    $("#password").attr("type","text");
+                    $(this).attr("data-view",0);
+                    $(this).html("<i class='fas fa-eye-slash'></i>");
+                }else{
+                    $(this).attr("data-view",1);
+                    $(this).html("<i class='fas fa-eye'></i>");
+                    $("#password").attr("type","password");
+                }
+            });
+        });
+    </script>
+@stop

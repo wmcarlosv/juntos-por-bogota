@@ -27,13 +27,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nombres:</label>
-                            <input type="text" name="name" class="form-control" />
+                            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') error-form @enderror" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Apellidos:</label>
-                            <input type="text" name="last_name" class="form-control" />
+                            <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -41,21 +41,21 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>CÉDULA DE CIUDADANÍA:</label>
-                            <input type="text" name="dni" class="form-control" />
+                            <input type="text" name="dni" value="{{ old('dni') }}" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>fecha de nacimiento:</label>
-                            <input type="date" name="birth_date" class="form-control" />
+                            <input type="date" name="birth_date" value="{{ old('birth_date') }}" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Sexo:</label>
                             <select class="form-control" name="sex">
-                                <option value="male">Masculino</option>
-                                <option value="female">Femenino</option>
+                                <option value="male" @if(old('sex') == 'male') selected='selected' @endif>Masculino</option>
+                                <option value="female" @if(old('sex') == 'female') selected='selected' @endif>Femenino</option>
                             </select>
                         </div>
                     </div>
@@ -64,13 +64,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Correo electrónico:</label>
-                            <input type="text" name="email" class="form-control" />
+                            <input type="text" name="email" value="{{ old('email') }}" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Numero de Telefono:</label>
-                            <input type="text" name="phone" class="form-control" />
+                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                             <select class="form-control" name="locale">
                                 <option value="">Seleccione</option>
                                 @foreach($locales as $locale)
-                                    <option value="{{ $locale['id'] }}">{{ $locale['name'] }}</option>
+                                    <option value="{{ $locale['id'] }}" @if(old('locale') == $locale['id']) selected='selected' @endif>{{ $locale['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -91,12 +91,12 @@
 
                 <div class="form-group">
                     <label>Dirección:</label>
-                    <textarea class="form-control" name="address"></textarea>
+                    <textarea class="form-control" name="address">{{ @old('address') }}</textarea>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-check">
-                          <input class="form-check-input" name="can_refer" type="checkbox" id="can_refer">
+                          <input class="form-check-input" @if(@old('can_refer')) checked='checked' @endif name="can_refer" type="checkbox" id="can_refer">
                           <label class="form-check-label" for="can_refer">
                             Puede Referir
                           </label>
