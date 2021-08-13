@@ -294,6 +294,14 @@ class HomeController extends Controller
     }
 
     public function delete_friend($id){
+
+        $admin = User::where('is_admin',1)->get();
+        $admin_id = $admin[0]['id'];
+
+        $referers = User::where('parent_user_id', $id)->update([
+            'parent_user_id' => $admin_id
+        ]);
+
         $user = User::findorfail($id);
         if($user->delete()){
             Session::flash('success','Referido eliminado con Exito!!');
