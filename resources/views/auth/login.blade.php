@@ -4,7 +4,7 @@
 
 @section('css')
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css?v=1') }}" />
 @stop
 
 @section('content')
