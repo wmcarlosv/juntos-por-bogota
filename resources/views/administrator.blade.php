@@ -103,8 +103,11 @@
 	        					@endif
 	        				@endforeach
 	        			</td>
-	        			<td><a href="{{ route('show_friend',$user->id) }}">Ver</a></td>
-	        			<td></td>
+	        			<td><a href="{{ route('show_friend',$user->id) }}">Ver</a> / <form id="delete_{{ $user->id }}" action="{{ route('delete_friend',$user->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('delete')
+                                <a href="#" data-id="{{ $user->id }}" class="actions delete">Eliminar</a> 
+                            </form></td>
 	        		</tr>
 	        	@endforeach
 	        </tbody>
@@ -120,12 +123,20 @@
 		$("#buscar_admin").click(function(){
 			let dni = $("input[name='dni']").val();
 			let locale = $("select[name='locale']").val();
+
 			if(!dni){
 				dni = " ";
 			}
 
 			location.href="/administrator/"+dni+"/"+locale;
 		});
+
+		$("a.delete").click(function(){
+            let id = $(this).attr("data-id");
+            if(confirm("Estas seguro de eliminar este Referido?")){
+                $("form#delete_"+id).submit();
+            }
+        });
 
 		$("#btn-export").click(function(){
 			window.open('data:application/vnd.ms-excel,' + $('#all_peoples').html());
